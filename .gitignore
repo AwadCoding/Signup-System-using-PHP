@@ -1,0 +1,12 @@
+# ── Sensitive Files ────────────────────────────────
+# config.php فيه باسورد الـ DB — متتدفعش على GitHub
+config.php
+
+# ── IDE & OS ───────────────────────────────────────
+.vscode/
+.idea/
+*.DS_Store
+Thumbs.db
+
+# ── XAMPP / Server Logs ───────────────────────────
+*.log

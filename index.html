@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/signup.css">
+    <title>Signup</title>
+  </head>
+  <body>
+    <main>
+    <h1>Signup</h1>
+
+    <form id="signupForm" action="../backend/signup.php" method="post">
+      <div class="input-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Full Name" required />
+        <span class="error-msg" id="error-name"></span>
+      </div>
+
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Email" required />
+        <span class="error-msg" id="error-email"></span>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" minlength="8" name="password" placeholder="Password" required />
+        <span class="error-msg" id="error-password"></span>
+      </div>
+
+      <div class="input-group">
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" id="confirm_password" minlength="8" name="confirm_password" placeholder="Confirm Password" required />
+        <span class="error-msg" id="error-confirm_password"></span>
+      </div>
+ 
+      <button type="submit">Sign Up</button>
+      <div class="success-msg" id="success-msg"></div>
+    </form>
+
+    <p class="auth-link">Already have an account? <a href="login.html">Login</a></p>
+    </main>
+    <!-- ده لسه هذاكرو بس انا مطبق وعايز الحك انام عشان اجي السيشن فايق 😁 -->
+
+    <script>
+    const form = document.getElementById("signupForm");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      // امسح الأخطاء القديمة
+      document.querySelectorAll(".error-msg").forEach((el) => (el.textContent = ""));
+      const successBox = document.getElementById("success-msg");
+      successBox.textContent = "";
+      successBox.style.color = "#5ee3a0";
+
+      const formData = new FormData(form);
+
+      try {
+        const res = await fetch("../backend/signup.php", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          successBox.textContent = data.message || "تم إنشاء الحساب بنجاح!";
+          form.reset();
+          setTimeout(() => {
+            window.location.href = "login.html";
+          }, 2000);
+        } else {
+          for (const [field, msg] of Object.entries(data.errors || {})) {
+            const el = document.getElementById("error-" + field);
+            if (el) {
+              el.textContent = msg;
+            } else {
+              successBox.style.color = "#ff8080";
+              successBox.textContent = msg;
+            }
+          }
+        }
+      } catch (err) {
+        successBox.style.color = "#ff8080";
+        successBox.textContent = "خطأ في الاتصال. حاول مرة أخرى.";
+      }
+    });
+  </script>
+  </body>
+
+</html>

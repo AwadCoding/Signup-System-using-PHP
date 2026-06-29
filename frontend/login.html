@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/login.css" />
+    <title>Login</title>
+  </head>
+  <body>
+    <main>
+      <h1>Login</h1>
+
+      <form id="loginForm" action="../backend/login.php" method="post">
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Email" required />
+          <span class="error-msg" id="error-email"></span>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Password" required />
+          <span class="error-msg" id="error-password"></span>
+        </div>
+
+        <button type="submit">Login</button>
+        <div class="success-msg" id="success-msg"></div>
+      </form>
+
+      <p class="auth-link">Don't have an account? <a href="signup.html">Sign Up</a></p>
+    </main>
+    <!-- ده لسه هذاكرو بس انا مطبق وعايز الحك انام عشان اجي السيشن فايق 😁 -->
+
+    <script>
+      const form = document.getElementById("loginForm");
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        // Clear previous errors
+        document.querySelectorAll(".error-msg").forEach((el) => (el.textContent = ""));
+        document.getElementById("success-msg").textContent = "";
+
+        const formData = new FormData(form);
+
+        try {
+          const res = await fetch("../backend/login.php", {
+            method: "POST",
+            body: formData,
+          });
+
+          const data = await res.json();
+
+          if (data.success) {
+            document.getElementById("success-msg").textContent = data.message || "Login successful!";
+            // Redirect after short delay
+            setTimeout(() => {
+              window.location.href = data.redirect || "dashboard.html";
+            }, 1000);
+          } else {
+            for (const [field, msg] of Object.entries(data.errors || {})) {
+              const el = document.getElementById("error-" + field);
+              if (el) el.innerHTML = msg;
+            }
+          }
+        } catch (err) {
+          document.getElementById("success-msg").style.color = "#ff8080";
+          document.getElementById("success-msg").textContent = "Connection error. Please try again.";
+        }
+      });
+    </script>
+  </body>
+</html>

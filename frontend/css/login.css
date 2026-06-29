@@ -1,0 +1,158 @@
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: url(../images/bg-signup.jpg) no-repeat center;
+            background-size: cover;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        main {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 0;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        h1::after {
+            content: "";
+            height: 3px;
+            width: 50px;
+            display: block;
+            background-color: #5ee3a0;
+            margin: 6px auto;
+            box-shadow: 0 2px 8px rgba(94, 227, 160, 0.6);
+            border-radius: 2px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 32px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 13px;
+            letter-spacing: 0.3px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px 14px;
+            box-sizing: border-box;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 8px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        input:focus {
+            border-color: #5ee3a0;
+            background: rgba(94, 227, 160, 0.1);
+            box-shadow: 0 0 0 3px rgba(94, 227, 160, 0.2);
+            outline: none;
+        }
+
+        .error-msg {
+            color: #ff8080;
+            font-size: 12px;
+            margin-top: 5px;
+            min-height: 15px;
+        }
+
+        .error-msg a {
+            color: #5ee3a0;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .success-msg {
+            color: #5ee3a0;
+            font-size: 14px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 12px;
+            background: linear-gradient(135deg, #3aaa6e, #5ee3a0);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+            box-shadow: 0 4px 16px rgba(58, 170, 110, 0.45);
+            margin-top: 4px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(58, 170, 110, 0.6);
+        }
+
+        button:active {
+            transform: translateY(0);
+            opacity: 0.9;
+        }
+
+.auth-link {
+            margin-top: 20px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+        }
+
+        .auth-link a {
+            color: #5ee3a0;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .auth-link a:hover {
+            color: #a8f0cc;
+            text-decoration: underline;
+        }
