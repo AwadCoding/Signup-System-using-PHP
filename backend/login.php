@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $response["success"]  = true;
             $response["message"]  = "تم تسجيل الدخول بنجاح! مرحباً، " . htmlspecialchars($user['name']);
-            $response["redirect"] = "../frontend/profile.php";
+            $response["redirect"] = "../backend/profile.php";
         }
     }
 

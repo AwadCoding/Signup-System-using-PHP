@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ══ Primary SEO ══════════════════════════════════════════════ -->
+    <title>Sign Up — Signup System</title>
+    <meta name="description"        content="Create a free account on Signup System. Join us with your name, email, and password in just a few seconds." />
+    <meta name="robots"             content="index, follow" />
+    <link rel="canonical"           href="https://mahmoudawad.rf.gd/frontend/signup.html" />
+
+    <!-- ══ Open Graph (Facebook / WhatsApp / LinkedIn) ═════════════ -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content="Sign Up — Signup System" />
+    <meta property="og:description" content="Create a free account in seconds." />
+    <meta property="og:url"         content="https://mahmoudawad.rf.gd/frontend/signup.html" />
+    <meta property="og:image"       content="https://mahmoudawad.rf.gd/frontend/images/SEO/signup.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height"content="720" />
+    <meta property="og:locale"      content="en_US" />
+    <meta property="og:site_name"   content="Signup System" />
+
+    <!-- ══ Twitter Card ════════════════════════════════════════════ -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="Sign Up — Signup System" />
+    <meta name="twitter:description" content="Create a free account in seconds." />
+    <meta name="twitter:image"       content="https://mahmoudawad.rf.gd/frontend/images/SEO/signup.png" />
+
+    <!-- ══ Favicon ═════════════════════════════════════════════════ -->
+    <link rel="icon" type="image/svg+xml" href="images/SEO/logo.svg" />
+
+    <!-- ══ Styles ══════════════════════════════════════════════════ -->
+    <link rel="stylesheet" href="css/signup.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Sign Up</h1>
+
+      <form id="signupForm" action="../backend/signup.php" method="post">
+
+        <div class="input-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="Full Name" required />
+          <span class="error-msg" id="error-name"></span>
+        </div>
+
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Email" required />
+          <span class="error-msg" id="error-email"></span>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Password" required />
+          <span class="error-msg" id="error-password"></span>
+        </div>
+
+        <div class="input-group">
+          <label for="confirm_password">Confirm Password</label>
+          <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required />
+          <span class="error-msg" id="error-confirm_password"></span>
+        </div>
+
+        <button type="submit">Create Account</button>
+        <div class="success-msg" id="success-msg"></div>
+      </form>
+
+      <p class="auth-link">Already have an account? <a href="login.html">Login</a></p>
+    </main>
+    <!-- ده لسه هذاكرو بس انا مطبق وعايز الحك انام عشان اجي السيشن فايق 😁 -->
+
+    <script>
+    const form = document.getElementById("signupForm");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      // مسح الأخطاء السابقة
+      document.querySelectorAll(".error-msg").forEach((el) => (el.textContent = ""));
+      document.getElementById("success-msg").textContent = "";
+
+      const formData = new FormData(form);
+
+      try {
+        const res = await fetch("../backend/signup.php", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          document.getElementById("success-msg").textContent = data.message || "Account created!";
+          setTimeout(() => {
+            window.location.href = data.redirect || "login.html";
+          }, 1500);
+        } else {
+          for (const [field, msg] of Object.entries(data.errors || {})) {
+            const el = document.getElementById("error-" + field);
+            if (el) el.textContent = msg;
+          }
+        }
+      } catch (err) {
+        document.getElementById("success-msg").style.color = "#ff8080";
+        document.getElementById("success-msg").textContent = "Connection error. Please try again.";
+      }
+    });
+    </script>
+  </body>
+</html>
